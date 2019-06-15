@@ -1,0 +1,36 @@
+<% include partials/header%>
+<div class="container">
+	<h1>
+		Add New Event
+	</h1>
+</div>
+<div>
+	<form action="/events" method="POST">
+		<div class="container">
+			<div class="form-group">
+				<lable for="e_name">Event Name</lable>
+				<input type="text" class="form-control" id="e_name "name="event[name]">
+			</div>
+			<div class="form-group">
+				<label for="s_date">Start Date</label>
+				<input type="date" class="form-control" id="s_date" name="event[startdate]">
+			</div>
+			<div class="form-group">
+				<label for="e_Desc">Start Date</label>
+				<input type="textbox" id="e_desc" class="form-control" name="event[description]" placeholder="Decribe the significance of this event! (Optional)">
+			</div>
+			<div class="form-group">
+				<button class="btn btn-dark">
+					Submit
+				</button>
+			</div>
+			<a href="/events" type="button" class="btn btn-secondary">Go Back!</a>
+		</div>
+		
+	
+		
+	</form>
+	
+</div>
+
+<% include partials/footer%>
