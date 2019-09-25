@@ -1,8 +1,27 @@
 <% include partials/header%>
-<h1>
-	List all events!
-</h1>
-<div>
+
+<div class="container">
 	<a href="/events/new">Add a new event</a>
+</div>
+<div class="container">
+	<h1>
+		My Events
+	</h1>
+	
+	<% for(i=0 ; i < events.length ; i++){ %> 
+		<div class="container shadow p-3 mb-5  bg-light rounded">
+			<div>
+				<%= events[i].name%>
+			</div>
+			<div>
+				Start Date: <%= events[i].startdate%>
+			</div>
+			<div>
+				<a href="/events/<%= events[i]._id %>">Read More</a>
+			</div>
+		</div>
+	<%}%>
+		
+	
 </div>
 <% include partials/footer%>

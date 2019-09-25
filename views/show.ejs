@@ -1,0 +1,145 @@
+<% include partials/header%>
+
+<div class="container">
+
+	<div class="d-flex justify-content-center">
+		<div class="row">
+			<h1>
+				<%= event.name %>
+			</h1>
+		</div>	
+	</div>
+
+	<div class="d-flex align-items-center flex-column">
+		<div class="align-content-center">
+			The special day was on <%= event.startdate%>
+		</div>
+		
+		<div class="align-content-center">
+			Since the event it has been...
+		</div>
+
+		<!-- Printing in years, months, days only when years >0 -->
+		<% if(ymd_array[0]== 0){ %>
+			<div class="align-content-center">
+				<%= ymd_array[1]%> months <%=ymd_array[2]%> days 
+			</div>
+		<% }else{ %>
+			<div class="align-content-center">
+				<%= ymd_array[0]%> year <%= ymd_array[1]%> months <%=ymd_array[2]%> days 
+			</div>
+			<!-- Printing in months and days when years>0 -->
+			<div class="align-content-center">
+				<%= (ymd_array[0]*12) + ymd_array[1]  %> months <%=ymd_array[2]%> days 
+			</div>
+		<% } %>
+		
+		<!-- Printing in days only when months and years > 0-->
+		<% if(ymd_array[1] == 0 && ymd_array[0] ==0){  %>
+			
+		<% }else{  %>
+			<div class="align-content-center">
+				<%= days %> days 
+			</div>
+		<% }  %>
+
+		<!-- Printing in weeks-->
+		<div class="align-content-center">
+				<%= days/7 %> weeks 
+		</div>
+		
+		<!-- Printing in hours-->
+		<div class="align-content-center">
+			<%= days*24 %> hours
+		</div>
+		
+		<!-- Printing in minutes-->
+		<div class="align-content-center">
+			<%= days*24*60 %> minutes 
+		</div>
+		
+		<!-- Printing in seconds-->
+		<div class="align-content-center">
+			<%= days*24*60*60 %> seconds 
+		</div>
+		<div class="align-content-center">
+			Excluding today!
+		</div>
+	</div>
+
+	<div class="row text-center">
+		<div class="col-md-6">
+			<h3>
+				Next Montly Event Date
+			</h3>
+
+			<!-- Printing in years, months, days only when years >0 -->
+			<% if(monthly[0] > 0 && monthly[1] > 0){ %>
+				<div class="align-content-center">
+					<%= monthly[0]%> year <%= monthly[1]%> months <%=monthly[2]%> days
+					
+				</div>
+				<div class="align-content-center">
+					<%= (monthly[0]*12) +monthly[1]  %> months <%=monthly[2]%> days 
+				</div>
+			<% }else{ %>
+				<div class="align-content-center">
+					<%= monthly[1]%> months <%=monthly[2]%> days 
+				</div>
+				<!-- Printing in months and days when years>0 -->
+				
+			<% } %>
+
+			<!-- Printing in days only when months and years > 0-->
+			<% if(monthly[1] == 0 && monthly[0] ==0){  %>
+
+			<% }else{  %>
+				<div class="align-content-center">
+					<%= mdays %> days 
+				</div>
+			<% }  %>
+
+			<!-- Printing in weeks-->
+			<div class="align-content-center">
+					<%= mdays/7 %> weeks 
+			</div>
+
+			<!-- Printing in hours-->
+			<div class="align-content-center">
+				<%= mdays*24 %> hours
+			</div>
+
+			<!-- Printing in minutes-->
+			<div class="align-content-center">
+				<%= mdays*24*60 %> minutes 
+			</div>
+
+			<!-- Printing in seconds-->
+			<div class="align-content-center">
+				<%= mdays*24*60*60 %> seconds 
+			</div>
+			<div class="align-content-center">
+				Excluding today!
+			</div>
+		</div>
+
+		<div class = "col-md-6 ">
+			<h3>
+				Next Yearly Event Date
+			</h3>
+			<div>
+				<p>
+					<%= yearly[0]%> year <%= yearly[1]%> months <%=yearly[2]%> days till the next yearly event!
+				</p>
+			</div>	
+		</div>
+		
+		
+	</div>
+	<div class="text-center">
+		<a href="/events">GO BACK!</a>
+	</div>
+
+</div>
+
+<% include partials/footer%>
