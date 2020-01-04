@@ -48,31 +48,66 @@ router.get("/events/:id", (req, res)=>{
 			console.log(err);
 		}else{
 			var startDate = new Date(foundEvent.startdate); //JS object from input HTMl
-			var now = new Date(); //This date is in Korean timezone
-			var currentDate = new Date(moment.tz('America/Los_Angeles').format('YYYY-MM-DD HH:mm:ss')); //This is in CDT
+			//var now = new Date(); //This date is in Korean timezone
+			//var currentDate = new Date(moment.tz('America/Los_Angeles').format('YYYY-MM-DD HH:mm:ss')); //This is in CDT
 			var msPerDay = 1000* 24* 60* 60; //no of ms per day
-			var days = Math.round ((currentDate.getTime() - startDate.getTime()) / msPerDay); //Days from the start date
+			
 			//console.log("Current Date" , currentDate ," - ",  currentDate.getTime());
 			//console.log(moment.tz('America/Los_Angeles').format('YYYY-MM-DD HH:mm:ss'));
-			var ymd_array = YMDbreakdown(startDate, currentDate); //since event
+			
 			var startDate_year = startDate.getFullYear();
 			var startDate_month = startDate.getMonth();
+			//console.log(currentDate.getMonth());
 			console.log(startDate_month);
-			//var startDate_day = startDate.getDate();
-			var currentDate_year = currentDate.getFullYear();
-			var currentDate_month = currentDate.getMonth();
-			var currentDate_day = currentDate.getDate();
-			//=====================================================================================
-			var next_monthly_date = new Date(currentDate_year, currentDate_month , startDate_day);
-			//console.log(next_monthly_date);
-			var m_days = Math.round ((next_monthly_date.getTime() - currentDate.getTime()) / msPerDay); //Days from the start date
-			var ymd_monthly_array = YMDbreakdown(currentDate, next_monthly_date);
+			var startDate_day = startDate.getDate();
+			
+			var currentDate = new Date();
+			var dd = String(currentDate.getDate()).padStart(2, '0');
+			var mm = String(currentDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+			var yyyy = currentDate.getFullYear();
+			
+			//=====================
+			
+			var currentDate_year = yyyy;
+			var currentDate_month = mm-1;
+			var currentDate_day = dd;
+			
+			
+			//================================================================
+			if(currentDate_month == 11){
+				var next_monthly_date = new Date(currentDate_year+1, 0 , startDate_day);
+				console.log(next_monthly_date);
+				var m_days = Math.round ((next_monthly_date.getTime() - currentDate.getTime()) / msPerDay); //Days from the start date
+				var ymd_monthly_array = YMDbreakdown(currentDate, next_monthly_date);
+			}else {
+				if(currentDate_day <= startDate_day){
+				var next_monthly_date = new Date(currentDate_year, currentDate_month , startDate_day);
+				console.log("here" , next_monthly_date , currentDate);
+				var m_days = Math.round ((next_monthly_date.getTime() - currentDate.getTime()) / msPerDay); //Days from the start date
+				var ymd_monthly_array = YMDbreakdown(currentDate, next_monthly_date);
+				}
+				else if(currentDate_day > startDate_day){
+				var next_monthly_date = new Date(currentDate_year, currentDate_month+1 , startDate_day);
+				console.log(next_monthly_date);
+				var m_days = Math.round ((next_monthly_date.getTime() - currentDate.getTime()) / msPerDay); //Days from the start date
+				var ymd_monthly_array = YMDbreakdown(currentDate, next_monthly_date);
+				}
+			}
 			//console.log("array" , ymd_monthly_array);
 			//=====================================================================================
-			var next_yearly_date = new Date(startDate_year+1, startDate_month , startDate_day);
-			/console.log(next_yearly_date);
-			var y_days = Math.round ((next_yearly_date.getTime() - currentDate.getTime()) / msPerDay); //Days from the start date
-			var ymd_yearly_array = YMDbreakdown(currentDate, next_yearly_date);
+			if(startDate_month > currentDate_month || ((startDate_month == currentDate.month) && (startDate_day > currentDate_day)) ){
+			    var next_yearly_date = new Date(currentDate_year, startDate_month , startDate_day);
+				//console.log("here",next_yearly_date, currentDate_year);
+				var y_days = Math.round ((next_yearly_date.getTime() - currentDate.getTime()) / msPerDay); //Days from the start date
+				var ymd_yearly_array = YMDbreakdown(currentDate, next_yearly_date);
+			}else{
+			   var next_yearly_date = new Date(currentDate_year+1, startDate_month , startDate_day);
+				//console.log(next_yearly_date);
+				var y_days = Math.round ((next_yearly_date.getTime() - currentDate.getTime()) / msPerDay); //Days from the start date
+				var ymd_yearly_array = YMDbreakdown(currentDate, next_yearly_date);
+			}
+			var days = Math.round ((currentDate.getTime() - startDate.getTime()) / msPerDay); //Days from the start date
+			var ymd_array = YMDbreakdown(startDate, currentDate); //since event
 			//console.log(startdate.getMonth() , currentDate.getMonth());
 			res.render("show", {event:foundEvent ,ymd_array: ymd_array, monthly: ymd_monthly_array , yearly: ymd_yearly_array, days:days-1,mdays:m_days,ydays:y_days});
 		}
@@ -95,7 +130,7 @@ function YMDbreakdown(date_1, date_2){
 
 		date_2.setMonth(date_2.getMonth()-1);
 		days += DaysInMonth(date_2);
-		console.log("days " + days);
+	//	console.log("days " + days);
 	}
 	//--------------------------------------------------------------
 	var months = date_2.getMonth() - date_1.getMonth();
@@ -104,7 +139,7 @@ function YMDbreakdown(date_1, date_2){
 	{
 		date_2.setFullYear(date_2.getFullYear() - 1);
 		months += 12;
-		console.log("months " + months);
+		//console.log("months " + months);
 	}
 	//--------------------------------------------------------------
 	var years = date_2.getFullYear() - date_1.getFullYear();

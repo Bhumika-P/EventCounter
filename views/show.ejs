@@ -45,7 +45,7 @@
 
 		<!-- Printing in weeks-->
 		<div class="align-content-center">
-				<%= days/7 %> weeks 
+				<%= Math.floor(days/7) %> weeks 
 		</div>
 		
 		<!-- Printing in hours-->
@@ -101,7 +101,7 @@
 
 			<!-- Printing in weeks-->
 			<div class="align-content-center">
-					<%= mdays/7 %> weeks 
+					<%= Math.floor(mdays/7) %> weeks 
 			</div>
 
 			<!-- Printing in hours-->
@@ -118,6 +118,7 @@
 			<div class="align-content-center">
 				<%= mdays*24*60*60 %> seconds 
 			</div>
+			
 			<div class="align-content-center">
 				Excluding today!
 			</div>
@@ -128,10 +129,32 @@
 				Next Yearly Event Date
 			</h3>
 			<div>
-				<p>
-					<%= yearly[0]%> year <%= yearly[1]%> months <%=yearly[2]%> days till the next yearly event!
-				</p>
+				<%= yearly[0]%> year <%= yearly[1]%> months <%=yearly[2]%> days till the next yearly event!
+			
 			</div>	
+			<!-- Printing in weeks-->
+			<div class="align-content-center">
+				<%= Math.floor(ydays/7) %> weeks 
+			</div>
+
+			<!-- Printing in hours-->
+			<div class="align-content-center">
+				<%= ydays*24 %> hours
+			</div>
+
+			<!-- Printing in minutes-->
+			<div class="align-content-center">
+				<%= ydays*24*60 %> minutes 
+			</div>
+
+			<!-- Printing in seconds-->
+			<div class="align-content-center">
+				<%= ydays*24*60*60 %> seconds 
+			</div>
+			
+			<div class="align-content-center">
+				Excluding today!
+			</div>
 		</div>
 		
 		
