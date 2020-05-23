@@ -34,6 +34,7 @@ router.post("/events" , (req,res)=>{
 		if(err){
 			console.log(err);
 		}else{
+			//console.log(req.body.event);
 			console.log(createdEvent);
 		}		 
 	});
@@ -58,57 +59,64 @@ router.get("/events/:id", (req, res)=>{
 			var startDate_year = startDate.getFullYear();
 			var startDate_month = startDate.getMonth();
 			//console.log(currentDate.getMonth());
-			console.log(startDate_month);
+			//console.log(startDate_month);
 			var startDate_day = startDate.getDate();
 			
+
 			var currentDate = new Date();
+			currentDate.setDate(new Date().getDate()-1); //Need to fix this eventually. CurrentDate gives wrong date
+			//console.log(currentDate.getDate());
 			var dd = String(currentDate.getDate()).padStart(2, '0');
 			var mm = String(currentDate.getMonth() + 1).padStart(2, '0'); //January is 0!
 			var yyyy = currentDate.getFullYear();
-			
+			//console.log("Current Date" , currentDate ," - ",  currentDate.getTime());
+	
 			//=====================
 			
 			var currentDate_year = yyyy;
 			var currentDate_month = mm-1;
-			var currentDate_day = dd;
+			var currentDate_day = dd; 
 			
+			//console.log(currentDate_day);
 			
 			//================================================================
 			if(currentDate_month == 11){
 				var next_monthly_date = new Date(currentDate_year+1, 0 , startDate_day);
-				console.log(next_monthly_date);
+				//console.log(next_monthly_date);
 				var m_days = Math.round ((next_monthly_date.getTime() - currentDate.getTime()) / msPerDay); //Days from the start date
 				var ymd_monthly_array = YMDbreakdown(currentDate, next_monthly_date);
 			}else {
 				if(currentDate_day <= startDate_day){
 				var next_monthly_date = new Date(currentDate_year, currentDate_month , startDate_day);
-				console.log("here" , next_monthly_date , currentDate);
+				//console.log("here" , next_monthly_date , currentDate);
 				var m_days = Math.round ((next_monthly_date.getTime() - currentDate.getTime()) / msPerDay); //Days from the start date
 				var ymd_monthly_array = YMDbreakdown(currentDate, next_monthly_date);
 				}
 				else if(currentDate_day > startDate_day){
 				var next_monthly_date = new Date(currentDate_year, currentDate_month+1 , startDate_day);
-				console.log(next_monthly_date);
+				//console.log(next_monthly_date);
 				var m_days = Math.round ((next_monthly_date.getTime() - currentDate.getTime()) / msPerDay); //Days from the start date
 				var ymd_monthly_array = YMDbreakdown(currentDate, next_monthly_date);
 				}
 			}
+			//const diffDays = Math.round(Math.abs((next_monthly_date - currentDate) / msPerDay));
+			//console.log(next_monthly_date.getTime(), " ",currentDate.getTime(), " ",msPerDay," ", diffDays );
 			//console.log("array" , ymd_monthly_array);
 			//=====================================================================================
-			if(startDate_month > currentDate_month || ((startDate_month == currentDate.month) && (startDate_day > currentDate_day)) ){
+			if(startDate_month > currentDate_month || ((startDate_month == currentDate_month) && (startDate_day > currentDate_day)) ){
 			    var next_yearly_date = new Date(currentDate_year, startDate_month , startDate_day);
-				//console.log("here",next_yearly_date, currentDate_year);
+		//		console.log("here",next_yearly_date, currentDate_year);
 				var y_days = Math.round ((next_yearly_date.getTime() - currentDate.getTime()) / msPerDay); //Days from the start date
 				var ymd_yearly_array = YMDbreakdown(currentDate, next_yearly_date);
 			}else{
 			   var next_yearly_date = new Date(currentDate_year+1, startDate_month , startDate_day);
-				//console.log(next_yearly_date);
+		//		console.log("wtf",next_yearly_date);
 				var y_days = Math.round ((next_yearly_date.getTime() - currentDate.getTime()) / msPerDay); //Days from the start date
 				var ymd_yearly_array = YMDbreakdown(currentDate, next_yearly_date);
 			}
 			var days = Math.round ((currentDate.getTime() - startDate.getTime()) / msPerDay); //Days from the start date
 			var ymd_array = YMDbreakdown(startDate, currentDate); //since event
-			//console.log(startdate.getMonth() , currentDate.getMonth());
+			//console.log(m_days);
 			res.render("show", {event:foundEvent ,ymd_array: ymd_array, monthly: ymd_monthly_array , yearly: ymd_yearly_array, days:days-1,mdays:m_days,ydays:y_days});
 		}
 	});
@@ -121,7 +129,7 @@ router.get("/events/:id", (req, res)=>{
 function YMDbreakdown(date_1, date_2){ 
 
 	var yAppendix, mAppendix, dAppendix;
-
+	//console.log("inside fnc" , date_1 , date_2);
 	//--------------------------------------------------------------
 	var days = date_2.getDate() - date_1.getDate();
 	//console.log("days - " + days);

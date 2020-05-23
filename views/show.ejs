@@ -1,166 +1,204 @@
 <% include partials/header%>
 
-<div class="container">
+<div class="dataevents">
 
-	<div class="d-flex justify-content-center">
-		<div class="row">
-			<h1>
-				<%= event.name %>
-			</h1>
-		</div>	
-	</div>
-
-	<div class="d-flex align-items-center flex-column">
-		<div class="align-content-center">
-			The special day was on <%= event.startdate%>
-		</div>
-		
-		<div class="align-content-center">
-			Since the event it has been...
-		</div>
-
-		<!-- Printing in years, months, days only when years >0 -->
-		<% if(ymd_array[0]== 0){ %>
-			<div class="align-content-center">
-				<%= ymd_array[1]%> months <%=ymd_array[2]%> days 
-			</div>
-		<% }else{ %>
-			<div class="align-content-center">
-				<%= ymd_array[0]%> year <%= ymd_array[1]%> months <%=ymd_array[2]%> days 
-			</div>
-			<!-- Printing in months and days when years>0 -->
-			<div class="align-content-center">
-				<%= (ymd_array[0]*12) + ymd_array[1]  %> months <%=ymd_array[2]%> days 
-			</div>
-		<% } %>
-		
-		<!-- Printing in days only when months and years > 0-->
-		<% if(ymd_array[1] == 0 && ymd_array[0] ==0){  %>
-			
-		<% }else{  %>
-			<div class="align-content-center">
-				<%= days %> days 
-			</div>
-		<% }  %>
-
-		<!-- Printing in weeks-->
-		<div class="align-content-center">
-				<%= Math.floor(days/7) %> weeks 
-		</div>
-		
-		<!-- Printing in hours-->
-		<div class="align-content-center">
-			<%= days*24 %> hours
-		</div>
-		
-		<!-- Printing in minutes-->
-		<div class="align-content-center">
-			<%= days*24*60 %> minutes 
-		</div>
-		
-		<!-- Printing in seconds-->
-		<div class="align-content-center">
-			<%= days*24*60*60 %> seconds 
-		</div>
-		<div class="align-content-center">
-			Excluding today!
-		</div>
-	</div>
-
-	<div class="row text-center">
-		<div class="col-md-6">
-			<h3>
-				Next Montly Event Date
-			</h3>
-
-			<!-- Printing in years, months, days only when years >0 -->
-			<% if(monthly[0] > 0 && monthly[1] > 0){ %>
-				<div class="align-content-center">
-					<%= monthly[0]%> year <%= monthly[1]%> months <%=monthly[2]%> days
-					
-				</div>
-				<div class="align-content-center">
-					<%= (monthly[0]*12) +monthly[1]  %> months <%=monthly[2]%> days 
-				</div>
-			<% }else{ %>
-				<div class="align-content-center">
-					<%= monthly[1]%> months <%=monthly[2]%> days 
-				</div>
-				<!-- Printing in months and days when years>0 -->
-				
-			<% } %>
-
-			<!-- Printing in days only when months and years > 0-->
-			<% if(monthly[1] == 0 && monthly[0] ==0){  %>
-
-			<% }else{  %>
-				<div class="align-content-center">
-					<%= mdays %> days 
-				</div>
-			<% }  %>
-
-			<!-- Printing in weeks-->
-			<div class="align-content-center">
-					<%= Math.floor(mdays/7) %> weeks 
-			</div>
-
-			<!-- Printing in hours-->
-			<div class="align-content-center">
-				<%= mdays*24 %> hours
-			</div>
-
-			<!-- Printing in minutes-->
-			<div class="align-content-center">
-				<%= mdays*24*60 %> minutes 
-			</div>
-
-			<!-- Printing in seconds-->
-			<div class="align-content-center">
-				<%= mdays*24*60*60 %> seconds 
-			</div>
-			
-			<div class="align-content-center">
-				Excluding today!
-			</div>
-		</div>
-
-		<div class = "col-md-6 ">
-			<h3>
-				Next Yearly Event Date
-			</h3>
-			<div>
-				<%= yearly[0]%> year <%= yearly[1]%> months <%=yearly[2]%> days till the next yearly event!
-			
+		<div class="whitetext">
+			<div class="row justify-content-center">
+				<h1>
+					<%= event.name %>
+				</h1>	
 			</div>	
-			<!-- Printing in weeks-->
-			<div class="align-content-center">
-				<%= Math.floor(ydays/7) %> weeks 
+			<div class="row justify-content-center">
+				<h4>
+					Start of the event: <%= event.startdate%>
+				</h4>
 			</div>
-
-			<!-- Printing in hours-->
-			<div class="align-content-center">
-				<%= ydays*24 %> hours
-			</div>
-
-			<!-- Printing in minutes-->
-			<div class="align-content-center">
-				<%= ydays*24*60 %> minutes 
-			</div>
-
-			<!-- Printing in seconds-->
-			<div class="align-content-center">
-				<%= ydays*24*60*60 %> seconds 
-			</div>
-			
-			<div class="align-content-center">
-				Excluding today!
+			<div class="row justify-content-center">
+				<h6>
+					<% if(event.description === ""){ %>
+						Too Lazy to type why this date is important!
+						
+					<% }else{ %>
+						Significance of the event: <%= event.description %>
+					<% } %>
+					
+				</h6>
 			</div>
 		</div>
-		
-		
+	
+		<div class="row card-group">
+
+			<div class="card datacard mb-5 rounded col-sm-6 col-md-4 col-lg-4 col-xl-4 col-12">
+				<div class="card-header">
+					Origin
+				</div>	
+				<div class="card-body">
+
+					<div class="align-content-center">
+						Since the event it has been...
+					</div>
+
+					<!-- Printing in years, months, days only when years >0 -->
+					<% if(ymd_array[0]== 0){ %>
+						<div class="align-content-center">
+							<%= ymd_array[1]%> months <%=ymd_array[2]%> days 
+						</div>
+					<% }else{ %>
+						<div class="align-content-center">
+							<%= ymd_array[0]%> year <%= ymd_array[1]%> months <%=ymd_array[2]%> days 
+						</div>
+						<!-- Printing in months and days when years>0 -->
+						<div class="align-content-center">
+							<%= (ymd_array[0]*12) + ymd_array[1]  %> months <%=ymd_array[2]%> days 
+						</div>
+					<% } %>
+
+					<!-- Printing in days only when months and years > 0-->
+					<% if(ymd_array[1] == 0 && ymd_array[0] ==0){  %>
+
+					<% }else{  %>
+						<div class="align-content-center">
+							<%= days %> days 
+						</div>
+					<% }  %>
+
+					<!-- Printing in weeks-->
+					<div class="align-content-center">
+							<%= Math.floor(days/7) %> weeks 
+					</div>
+
+					<!-- Printing in hours-->
+					<div class="align-content-center">
+						<%= days*24 %> hours
+					</div>
+
+					<!-- Printing in minutes-->
+					<div class="align-content-center">
+						<%= days*24*60 %> minutes 
+					</div>
+
+					<!-- Printing in seconds-->
+					<div class="align-content-center">
+						<%= days*24*60*60 %> seconds 
+					</div>
+					<div class="align-content-center">
+						Excluding today!
+					</div>
+				</div>
+			</div>
+
+			<div class="card datacard mb-5 rounded col-sm-6 col-md-4 col-lg-4 col-xl-4 col-12">
+				<div class="card-header">
+					Next Montly Event Date
+				</div>
+				<div class="card-body">
+					
+					<!--date of the anniversary-->
+					<% if(mdays === 0){ %>
+							It has been a month since the event start date. Happy Anniversary if it applies!!!
+					<% }else{ %> <!--Not anniversary-->
+					
+						<!-- Printing in years, months, days only when years >0 -->
+						<% if(monthly[0] > 0 && monthly[1] > 0){ %>
+							<div class="align-content-center">
+								<%= monthly[0]%> year <%= monthly[1]%> months <%=monthly[2]%> days
+
+							</div>
+							<div class="align-content-center">
+								<%= (monthly[0]*12) +monthly[1]  %> months <%=monthly[2]%> days 
+							</div>
+						<% }else{ %>
+							<div class="align-content-center">
+								<%= monthly[1]%> months <%=monthly[2]%> days 
+							</div>
+							<!-- Printing in months and days when years>0 -->
+
+						<% } %>
+
+						<!-- Printing in days only when months and years > 0-->
+						<% if(monthly[1] == 0 && monthly[0] ==0){  %>
+
+						<% }else{  %>
+							<div class="align-content-center">
+								<%= mdays %> days 
+							</div>
+						<% }  %>
+
+						<!-- Printing in weeks-->
+						<div class="align-content-center">
+								<%= Math.floor(mdays/7) %> weeks 
+						</div>
+
+						<!-- Printing in hours-->
+						<div class="align-content-center">
+							<%= mdays*24 %> hours
+						</div>
+
+						<!-- Printing in minutes-->
+						<div class="align-content-center">
+							<%= mdays*24*60 %> minutes 
+						</div>
+
+						<!-- Printing in seconds-->
+						<div class="align-content-center">
+							<%= mdays*24*60*60 %> seconds 
+						</div>
+
+						<div class="align-content-center">
+							Excluding today!
+						</div>
+					<%}%>
+				</div>
+			</div>
+
+			<div class = "card datacard mb-5 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-12">
+				<div class="card-header">
+					Next Yearly Event Date
+				</div>
+				<div class="card-body">
+					
+					<% if(ydays === 0 ){ %>
+							It has been a year since the event start date. Happy Anniversary if it applies!!!
+					<% }else{ %> <!--Not anniversary-->
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									How long until the next yearly event????
+								</li>
+								<li class="list-group-item">
+									<%= yearly[0]%> year <%= yearly[1]%> months <%=yearly[2]%> days
+								</li>	
+								<!-- Printing in weeks-->
+								<li class="list-group-item">
+									<%= Math.floor(ydays/7) %> weeks 
+								</li>
+
+								<!-- Printing in hours-->
+								<li class="list-group-item">
+									<%= ydays*24 %> hours
+								</li>
+
+								<!-- Printing in minutes-->
+								<li class="list-group-item">
+									<%= ydays*24*60 %> minutes 
+								</li>
+
+								<!-- Printing in seconds-->
+								<li class="list-group-item">
+									<%= ydays*24*60*60 %> seconds 
+								</li>
+
+								<li class="list-group-item">
+									Excluding today!
+								</li>
+							 </ul>
+					<% } %>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	<div class="text-center">
-		<a href="/events">GO BACK!</a>
+		<a class="btn btn-light" href="/events">GO BACK!</a>
 	</div>
 
 </div>

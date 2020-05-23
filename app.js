@@ -16,6 +16,6 @@ mongoose.connect("mongodb://localhost/event_counter", options);
 //Declare routes
 app.use(indexRoutes);
 //var port = 5000;
-app.listen(5000, process.env.IP, function(){ 
+app.listen(1000, process.env.IP, function(){ 
    console.log("The Event Counter Has Begun!");
 });

@@ -1,7 +1,131 @@
 body {
-	background:#b4c6d6;
+	background:#4D4E49;
 }
-.jumbotron {
-	background:#605d5d;
+/* Jumbotron styles*/
+.jumbotron{
+	background:url("https://i.ibb.co/hHH4bY0/background.jpg");
+	background-position: center; 
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-size: cover;	
+    position: relative;
+	position: -webkit-sticky; /* Safari */
+ 	position: sticky;
+  	top: 0;
+}
+
+.jumbotron h1{
+	margin-left:7.0%;
 	color:white;
+	font-weight: 400;
+}
+
+/*Event card*/
+.card{
+	margin:1%;
+	box-shadow: 0 4px 8px 0 rgb(220,176,110, 0.55);
+	transition: 0.3s;
+	background-color: rgb(244,212,178, 0.5);
+}
+.card:hover {
+  box-shadow: 0 8px 20px 0 rgb(192,192,192);
+}
+
+.card-body{
+	background-color: white;
+}
+
+.card-header{
+	text-shadow: 2px 2px 4px rgb(220,176,110, 0.4);
+	font-weight: 500;
+	background-color: #f2f2f2;
+}
+.card-text{
+	
+}
+a{
+	color:#f2f2f2;
+	
+}
+a:hover{
+	color: #bfbfbf;
+	text-shadow: 2px 2px 4px rgb(220,176,110, 0.4);
+}
+.newevent{
+	box-shadow: 0 4px 8px 0 rgb(220,176,110, 0.55);
+}
+.newevent:hover {
+  box-shadow: 0 8px 20px 0 rgb(220,176,110, 0.55);
+}
+.darklink{
+	color: #4d4d4d;
+	text-decoration: underline;
+	font-weight: 500;
+}
+darklink:hover{
+	
+}
+.landing{
+	margin-left:8.5%;
+}
+.events{
+	margin: 3%;
+	margin-left:8.5%
+}
+.whitetext{
+	color: white;
+}
+
+/* Datacard*/
+.datacard{
+
+	box-shadow: 0 4px 8px 0 rgb(220,176,110, 0.55);
+	transition: 0.3s;
+	background-color: rgb(244,212,178, 0.5);
+}
+
+.datacard:hover {
+  box-shadow: 0 8px 20px 0 rgb(192,192,192);
+}
+
+.datacard-body{
+	background-color: white;
+}
+
+.datacard-header{
+	text-shadow: 2px 2px 4px rgb(220,176,110, 0.4);
+	font-weight: 500;
+	background-color: #f2f2f2;
+}
+.datacard-text{
+	
+}
+.dataevents{
+	margin-left: 3%;
+	margin-right: 3%;
+	margin-top: 1%;
+}
+/* Responsive fonts*/
+
+@media screen and (min-width: 601px) {
+  	.card-header {
+  	  font-size: 18px;
+ 	}
+	.card-text .newevent{
+		font-size: 16px
+	}
+	.eventheader{
+		font-size: 40px;
+	}
+}
+@media screen and (max-width: 601px) {
+  .card-header {
+    font-size: 16px;
+  }
+	.card-text .newevent{
+		font-size: 14px
+	}
+	.eventheader{
+		font-size: 30px;
+	}
 }
